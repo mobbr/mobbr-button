@@ -1,0 +1,23 @@
+{
+  "name": "mobbr-button",
+  "version": "0.0.0",
+  "authors": [
+    "Han Dijk <info@handijk.nl>"
+  ],
+  "main": "mobbr.js",
+  "license": "GPLv2",
+  "homepage": "http://mobbr.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "base64": "~0.2.0",
+    "json3": "~3.3.1",
+    "js-md5": "~1.1.0"
+  }
+}
