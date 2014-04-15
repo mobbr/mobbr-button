@@ -62,9 +62,9 @@ var mobbr = mobbr || (function () {
             'badgeWide'
         ];
 
-    window.onload = function () {
-        document.body.appendChild(mobbrDiv);
-    };
+    //window.onload = function () {
+    //    document.body.appendChild(mobbrDiv);
+    //};
 
     function createMobbrDiv() {
         var div = document.createElement('div');
@@ -245,7 +245,12 @@ var mobbr = mobbr || (function () {
         return data;
     }
 
+    function createDiv() {
+        mobbrDiv = createMobbrDiv();
+    }
+
     function setUrl(url) {
+        if (!mobbrDiv) createDiv();
         mobbrFrame.src = mobbr_ui_url + '/lightbox/#/' + url ;
     }
 
@@ -256,11 +261,13 @@ var mobbr = mobbr || (function () {
 
     function show(url, target) {
         setUrl(url || '');
+        if (!mobbrDiv) createDiv();
         mobbrDiv.style.display = 'block';
     }
 
     return {
 
+        createDiv: createDiv,
         setApiUrl: function (url) {
             mobbr_api_url = url;
         },
