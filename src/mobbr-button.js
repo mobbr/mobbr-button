@@ -1,7 +1,3 @@
-/* Where is our server? */
-var mobbr_api_url = 'https://api.mobbr.com';
-var mobbr_ui_url  = 'https://mobbr.com';
-
 /*
  mobbbr::javascript.js
  2012-04-12
@@ -12,6 +8,9 @@ var mobbr_ui_url  = 'https://mobbr.com';
  */
 
 var mobbr = mobbr || (function () {
+
+    var mobbr_api_url = 'https://api.mobbr.com',
+        mobbr_ui_url = 'https://mobbr.com';
 
     function in_array(obj, array) {
         var i = array.length;
@@ -262,6 +261,18 @@ var mobbr = mobbr || (function () {
 
     return {
 
+        setApiUrl: function (url) {
+            mobbr_api_url = url;
+        },
+        setUiUrl: function (url) {
+            mobbr_ui_url = url;
+        },
+        getApiUrl: function () {
+            return mobbr_api_url;
+        },
+        getUiUrl: function () {
+            return mobbr_ui_url;
+        },
         button: function (data, currency, button_type, target, positioning) {
             currency = currency || false;
             if (!in_array(button_type, buttonTypes)) {

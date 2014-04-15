@@ -1,4 +1,3 @@
-/*! mobbr-button 0.0.1 11-04-2014 */
 ;(function () {
 
   var object = typeof exports != 'undefined' ? exports : this; // #8: web workers
@@ -1238,10 +1237,6 @@
   }
 }).call(this);
 
-/* Where is our server? */
-var mobbr_api_url = 'https://api.mobbr.com';
-var mobbr_ui_url  = 'https://mobbr.com';
-
 /*
  mobbbr::javascript.js
  2012-04-12
@@ -1252,6 +1247,9 @@ var mobbr_ui_url  = 'https://mobbr.com';
  */
 
 var mobbr = mobbr || (function () {
+
+    var mobbr_api_url = 'https://api.mobbr.com',
+        mobbr_ui_url = 'https://mobbr.com';
 
     function in_array(obj, array) {
         var i = array.length;
@@ -1502,6 +1500,18 @@ var mobbr = mobbr || (function () {
 
     return {
 
+        setApiUrl: function (url) {
+            mobbr_api_url = url;
+        },
+        setUiUrl: function (url) {
+            mobbr_ui_url = url;
+        },
+        getApiUrl: function () {
+            return mobbr_api_url;
+        },
+        getUiUrl: function () {
+            return mobbr_ui_url;
+        },
         button: function (data, currency, button_type, target, positioning) {
             currency = currency || false;
             if (!in_array(button_type, buttonTypes)) {
@@ -1610,7 +1620,7 @@ var mobbr = mobbr || (function () {
 
             source = e.source;
 
-            if (e.origin === mobbr_ui_url) {
+            if (e.origin === mobbr.getUiUrl()) {
 
                 // If we don't get a logout message and our data is not the same
                 // we set a new cookie with the userdata cookie value
@@ -1635,7 +1645,7 @@ var mobbr = mobbr || (function () {
     function postMessage(msg) {
 
         if (source && $window.parent && $window.parent.postMessage) {
-            source.postMessage(msg, mobbr_ui_url);
+            source.postMessage(msg, mobbr.getUiUrl());
             return true;
         }
 
@@ -1689,7 +1699,7 @@ var mobbr = mobbr || (function () {
 
     function createWidget(widgetName, title) {
 
-        var baseUrl = 'https://mobbr.com/widget/#/';
+        var baseUrl = mobbr.getUiUrl + '/widget/#/';
         //var baseUrl = 'http://mobbr-www.dev.handijk.nl:9000/#/'
         var div = document.createElement('div');
         div.setAttribute('id', 'mobbr_div');

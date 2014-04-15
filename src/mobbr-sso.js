@@ -75,7 +75,7 @@
 
             source = e.source;
 
-            if (e.origin === mobbr_ui_url) {
+            if (e.origin === mobbr.getUiUrl()) {
 
                 // If we don't get a logout message and our data is not the same
                 // we set a new cookie with the userdata cookie value
@@ -100,7 +100,7 @@
     function postMessage(msg) {
 
         if (source && $window.parent && $window.parent.postMessage) {
-            source.postMessage(msg, mobbr_ui_url);
+            source.postMessage(msg, mobbr.getUiUrl());
             return true;
         }
 

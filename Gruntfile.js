@@ -9,7 +9,9 @@ module.exports = function(grunt) {
                         'bower_components/base64/base64.js',
                         'bower_components/js-md5/js/md5.js',
                         'bower_components/json3/lib/json3.js',
-                        'src/*.js'
+                        'src/mobbr-button.js',
+                        'src/mobbr-sso.js',
+                        'src/mobbr-widget.js'
                     ]
                 }
             }
