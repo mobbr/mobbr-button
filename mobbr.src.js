@@ -1486,6 +1486,7 @@ var mobbr = mobbr || (function () {
 
     function createDiv() {
         mobbrDiv = createMobbrDiv();
+        document.body.appendChild(mobbrDiv);
     }
 
     function setUrl(url) {
@@ -1500,7 +1501,6 @@ var mobbr = mobbr || (function () {
 
     function show(url, target) {
         setUrl(url || '');
-        if (!mobbrDiv) createDiv();
         mobbrDiv.style.display = 'block';
     }
 
