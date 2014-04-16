@@ -1706,7 +1706,7 @@ var mobbr = mobbr || (function () {
 
     function createWidget(widgetName, title) {
 
-        var baseUrl = mobbr.getUiUrl + '/widget/#/';
+        var baseUrl = mobbr.getUiUrl() + '/widget/#/';
         //var baseUrl = 'http://mobbr-www.dev.handijk.nl:9000/#/'
         var div = document.createElement('div');
         div.setAttribute('id', 'mobbr_div');
