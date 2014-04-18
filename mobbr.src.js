@@ -1358,9 +1358,9 @@ var mobbr = mobbr || (function () {
         var md5_hash = '';
 
         if (is_url(data)) {
-            md5_hash = hex_md5(data.replace(/\/$/, ""));
+            md5_hash = md5(data.replace(/\/$/, ""));
         } else if (is_url(data.url)) {
-            md5_hash = hex_md5(data.url.replace(/\/$/, ""));
+            md5_hash = md5(data.url.replace(/\/$/, ""));
         }
 
         return createButtonImage(
