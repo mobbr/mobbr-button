@@ -1626,6 +1626,7 @@ var mobbr = mobbr || (function () {
             var logout, login;
 
             source = e.source;
+            console.log(e, mobbr);
 
             if (e.origin === mobbr.getUiUrl()) {
 
