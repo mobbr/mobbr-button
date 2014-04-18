@@ -71,12 +71,16 @@
 
         eventer(messageEvent, function (e) {
 
-            var logout, login;
+            var logout, login, ui_url;
 
+            ui_url = mobbr.getUiUrl();
             source = e.source;
-            console.log(e, mobbr);
 
-            if (e.origin === mobbr.getUiUrl()) {
+            if(ui_url.substr(-1) == '/') {
+                ui_url = ui_url.substr(0, ui_url.length - 1);
+            }
+
+            if (e.origin === ui_url) {
 
                 // If we don't get a logout message and our data is not the same
                 // we set a new cookie with the userdata cookie value
