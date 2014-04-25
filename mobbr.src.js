@@ -1707,7 +1707,7 @@ var mobbr = mobbr || (function () {
     var widgetName = args[0];
     var title = args[1];
 
-    createWidget(widgetName, title);
+    //createWidget(widgetName, title);
 
     function createWidget(widgetName, title) {
 
