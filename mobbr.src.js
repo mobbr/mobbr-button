@@ -1268,7 +1268,16 @@ var mobbr = mobbr || (function () {
         return false;
     }
 
-    var mobbrDiv = createMobbrDiv(),
+    function addEvent(element, event, fn) {
+        if (element.addEventListener)
+            element.addEventListener(event, fn, false);
+        else if (element.attachEvent)
+            element.attachEvent('on' + event, fn);
+    }
+
+    addEvent(window, 'load', createMobbrDiv);
+
+    var mobbrDiv,
         mobbrFrame,
         buttonSizes={
             slim: [ 110, 20 ],
@@ -1306,32 +1315,36 @@ var mobbr = mobbr || (function () {
     //};
 
     function createMobbrDiv() {
-        var div = document.createElement('div');
-        div.setAttribute('id', 'mobbr_div');
-        div.setAttribute('name', 'mobbr_div');
-        div.style.cssText = 'opacity:0.95;filter:alpha(opacity=95); display:none; position: fixed; border: 4px solid #999; background: none repeat scroll 0% 0% #fff; top: 8px; right: 8px; padding:15px 0px 0px 0px; width: 492px; height: 338px; z-index: 2147483647; border-radius: 10px; -moz-border-radius: 15px; -webkit-border-radius: 15px; -khtml-border-radius: 15px;';
 
-        var a = document.createElement('a');
-        a.style.cssText = 'float:right; position:relative; top:-17px; right:5px; text-decoration:none; font-size:7pt; color:black;font-family: Arial, Helvetica, sans-serif;';
-        a.onclick = hide;
-        a.innetText = '[close window] ';
+        if (!mobbrDiv) {
+            var div = document.createElement('div');
+            div.setAttribute('id', 'mobbr_div');
+            div.setAttribute('name', 'mobbr_div');
+            div.style.cssText = 'opacity:0.95;filter:alpha(opacity=95); display:none; position: fixed; border: 4px solid #999; background: none repeat scroll 0% 0% #fff; top: 8px; right: 8px; padding:15px 0px 0px 0px; width: 492px; height: 338px; z-index: 2147483647; border-radius: 10px; -moz-border-radius: 15px; -webkit-border-radius: 15px; -khtml-border-radius: 15px;';
 
-        var img = document.createElement('img');
-        img.style.cssText = 'position:relative;top:5px;width: 24px;height: 24px';
-        img.src = mobbr_ui_url + '/img/frame_closebutton.png';
-        img.alt = 'Close button';
+            var a = document.createElement('a');
+            a.style.cssText = 'float:right; position:relative; top:-17px; right:5px; text-decoration:none; font-size:7pt; color:black;font-family: Arial, Helvetica, sans-serif;';
+            a.onclick = hide;
+            a.innetText = '[close window] ';
 
-        mobbrFrame = document.createElement('iframe');
-        mobbrFrame.setAttribute('name', 'mobbr_frame');
-        mobbrFrame.setAttribute('frameborder', '0');
-        mobbrFrame.style.cssText = 'position:relative;top:-10px;left:0;right:0;bottom:0;opacity:1;filter:alpha(opacity=100); width: 100%; height: 292px; padding:0; margin:0;';
-        mobbrFrame.src = mobbr_ui_url + '/lightbox/#/';
+            var img = document.createElement('img');
+            img.style.cssText = 'position:relative;top:5px;width: 24px;height: 24px';
+            img.src = mobbr_ui_url + '/img/frame_closebutton.png';
+            img.alt = 'Close button';
 
-        a.appendChild(img);
-        div.appendChild(a);
-        div.appendChild(mobbrFrame);
+            mobbrFrame = document.createElement('iframe');
+            mobbrFrame.setAttribute('name', 'mobbr_frame');
+            mobbrFrame.setAttribute('frameborder', '0');
+            mobbrFrame.style.cssText = 'position:relative;top:-10px;left:0;right:0;bottom:0;opacity:1;filter:alpha(opacity=100); width: 100%; height: 292px; padding:0; margin:0;';
+            mobbrFrame.src = mobbr_ui_url + '/lightbox/#/';
 
-        return div;
+            a.appendChild(img);
+            div.appendChild(a);
+            div.appendChild(mobbrFrame);
+
+            mobbrDiv = div;
+            document.body.appendChild(mobbrDiv);
+        }
     }
 
     function createButtonImage(url, onClick, button_type, currency) {
@@ -1484,14 +1497,8 @@ var mobbr = mobbr || (function () {
         return data;
     }
 
-    function createDiv() {
-        mobbrDiv = createMobbrDiv();
-        document.body.appendChild(mobbrDiv);
-    }
-
     function setUrl(url) {
-        if (!mobbrDiv) createDiv();
-        mobbrFrame.src = mobbr_ui_url + '/lightbox/#/' + url ;
+        mobbrFrame.src = url === undefined ? '' : mobbr_ui_url + '/lightbox/#/' + url ;
     }
 
     function hide() {
@@ -1506,7 +1513,13 @@ var mobbr = mobbr || (function () {
 
     return {
 
-        createDiv: createDiv,
+        createDiv: function () {
+            if (mobbrDiv) {
+                document.body.removeChild(mobbrDiv);
+                mobbrDiv = undefined;
+            }
+            createMobbrDiv();
+        },
         setApiUrl: function (url) {
             mobbr_api_url = url;
         },
