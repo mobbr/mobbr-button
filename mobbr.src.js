@@ -1249,7 +1249,8 @@
 var mobbr = mobbr || (function () {
 
     var mobbr_api_url = 'https://api.mobbr.com',
-        mobbr_ui_url = 'https://mobbr.com';
+        mobbr_ui_url = 'https://mobbr.com',
+        mobbr_lightbox_url = 'https://mobbr.com/lightbox/#';
 
     function in_array(obj, array) {
         var i = array.length;
@@ -1336,7 +1337,7 @@ var mobbr = mobbr || (function () {
             mobbrFrame.setAttribute('name', 'mobbr_frame');
             mobbrFrame.setAttribute('frameborder', '0');
             mobbrFrame.style.cssText = 'position:relative;top:-10px;left:0;right:0;bottom:0;opacity:1;filter:alpha(opacity=100); width: 100%; height: 292px; padding:0; margin:0;';
-            mobbrFrame.src = mobbr_ui_url + '/lightbox/#/';
+            mobbrFrame.src = mobbr_lightbox_url;
 
             a.appendChild(img);
             div.appendChild(a);
@@ -1498,7 +1499,7 @@ var mobbr = mobbr || (function () {
     }
 
     function setUrl(url) {
-        mobbrFrame.src = url === undefined ? '' : mobbr_ui_url + '/lightbox/#/' + url ;
+        mobbrFrame.src = url === undefined ? '' : mobbr_lightbox_url + '/' + url ;
     }
 
     function hide() {
@@ -1526,11 +1527,17 @@ var mobbr = mobbr || (function () {
         setUiUrl: function (url) {
             mobbr_ui_url = url;
         },
+        setLightboxUrl: function (url) {
+            mobbr_lightbox_url = url;
+        },
         getApiUrl: function () {
             return mobbr_api_url;
         },
         getUiUrl: function () {
             return mobbr_ui_url;
+        },
+        getLightboxUrl: function () {
+            return mobbr_lightbox_url;
         },
         button: function (data, currency, button_type, target, positioning) {
             currency = currency || false;
