@@ -1321,25 +1321,19 @@ var mobbr = mobbr || (function () {
             var div = document.createElement('div');
             div.setAttribute('id', 'mobbr_div');
             div.setAttribute('name', 'mobbr_div');
-            div.style.cssText = 'opacity:0.95;filter:alpha(opacity=95); display:none; position: fixed; border: 4px solid #999; background: none repeat scroll 0% 0% #fff; top: 8px; right: 8px; padding:15px 0px 0px 0px; width: 492px; height: 338px; z-index: 2147483647; border-radius: 10px; -moz-border-radius: 15px; -webkit-border-radius: 15px; -khtml-border-radius: 15px;';
+            div.style.cssText = 'display:none; position: fixed; top: 0; right: 0; width: 320px; height: 100%; z-index: 2147483647;';
 
             var a = document.createElement('a');
-            a.style.cssText = 'float:right; position:relative; top:-17px; right:5px; text-decoration:none; font-size:7pt; color:black;font-family: Arial, Helvetica, sans-serif;';
+            a.style.cssText = 'cursor: pointer; font-size: 26px; line-height: 59px; position:absolute; top:0; right:0; text-decoration:none; width: 60px; height: 59px; color: #595f64; z-index: 99999999999; border-left: 1px solid #000; border-bottom: 1px solid #000;';
             a.onclick = hide;
-            a.innetText = '[close window] ';
-
-            var img = document.createElement('img');
-            img.style.cssText = 'position:relative;top:5px;width: 24px;height: 24px';
-            img.src = mobbr_ui_url + '/img/frame_closebutton.png';
-            img.alt = 'Close button';
+            a.innerText = 'x';
 
             mobbrFrame = document.createElement('iframe');
             mobbrFrame.setAttribute('name', 'mobbr_frame');
             mobbrFrame.setAttribute('frameborder', '0');
-            mobbrFrame.style.cssText = 'position:relative;top:-10px;left:0;right:0;bottom:0;opacity:1;filter:alpha(opacity=100); width: 100%; height: 292px; padding:0; margin:0;';
+            mobbrFrame.style.cssText = 'width: 100%; height: 100%;';
             mobbrFrame.src = mobbr_lightbox_url;
 
-            a.appendChild(img);
             div.appendChild(a);
             div.appendChild(mobbrFrame);
 
@@ -1547,9 +1541,9 @@ var mobbr = mobbr || (function () {
             drawButton(data, button_type, currency, target, positioning);
         },
         hide: hide,
-        makePayment: function (data, target) { show('?hash=' + window.btoa(data), target); },
-        login: function () { show('?login=true'); },
-        logout: function () { show('?logout=true'); },
+        makePayment: function (data, target) { show('hash/' + window.btoa(data), target); },
+        login: function () { show('login'); },
+        logout: function () { show('logout'); },
 
         /**
          * TODO: All calls below are not needed, everything can be called with button(), remove if calls are changed accordingly
