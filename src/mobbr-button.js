@@ -72,9 +72,9 @@ var mobbr = mobbr || (function () {
             'badgeWide'
         ];
 
-    //window.onload = function () {
-    //    document.body.appendChild(mobbrDiv);
-    //};
+    window.onload = function () {
+        document.body.appendChild(mobbrDiv);
+    };
 
     function createMobbrDiv() {
 
@@ -91,6 +91,7 @@ var mobbr = mobbr || (function () {
 
             mobbrFrame = document.createElement('iframe');
             mobbrFrame.setAttribute('name', 'mobbr_frame');
+            mobbrFrame.setAttribute('id', 'mobbr_frame');
             mobbrFrame.setAttribute('frameborder', '0');
             mobbrFrame.style.cssText = 'width: 100%; height: 100%;';
             mobbrFrame.src = mobbr_lightbox_url;
@@ -99,7 +100,7 @@ var mobbr = mobbr || (function () {
             div.appendChild(mobbrFrame);
 
             mobbrDiv = div;
-            document.body.appendChild(mobbrDiv);
+            //document.body.appendChild(mobbrDiv);
         }
     }
 
@@ -302,7 +303,14 @@ var mobbr = mobbr || (function () {
             drawButton(data, button_type, currency, target, positioning);
         },
         hide: hide,
-        makePayment: function (data, target) { show('hash/' + window.btoa(data), target); },
+        makePayment: function (data, target) {
+            if (typeof data === 'object') {
+                window.document.getElementById('mobbr_frame').contentWindow.postMessage(data, mobbr_lightbox_url);
+            } else {
+                window.document.getElementById('mobbr_frame').contentWindow.postMessage(null, mobbr_lightbox_url);
+            }
+            show('hash/' + (typeof data === 'object' ? window.btoa(data.url) : window.btoa(data)), target);
+        },
         login: function () { show('login'); },
         logout: function () { show('logout'); },
 
