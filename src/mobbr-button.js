@@ -305,12 +305,12 @@ var mobbr = mobbr || (function () {
             },
             hide: hide,
             makePayment: function (data, target) {
-                if (typeof data === 'object') {
-                    window.document.getElementById('mobbr_frame').contentWindow.postMessage(data, mobbr_lightbox_url);
-                } else {
-                    window.document.getElementById('mobbr_frame').contentWindow.postMessage(null, mobbr_lightbox_url);
-                }
                 show('hash/' + (typeof data === 'object' ? window.btoa(data.url) : window.btoa(data)), target);
+                if (typeof data === 'object') {
+                    window.document.getElementById('mobbr_frame').contentWindow.postMessage(data, '*');
+                } else {
+                    window.document.getElementById('mobbr_frame').contentWindow.postMessage(null, '*');
+                }
             },
             login: function () { show('login'); },
             logout: function () { show('logout'); },
