@@ -9,36 +9,9 @@
 
 var mobbr = mobbr || (function () {
 
-        var mobbr_api_url = 'https://api.mobbr.com',
-            mobbr_ui_url = 'https://mobbr.com',
-            mobbr_lightbox_url = 'https://mobbr.com/lightbox/#';
-
-        function in_array(obj, array) {
-            var i = array.length;
-            while (i--) {
-                if (array[i] === obj) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        function is_url(str) {
-            var reg = /^https?:\/\/.*/;
-            if (typeof(str)!='string') return false;
-            if (reg.test(str)) return true;
-            return false;
-        }
-
-        function addEvent(element, event, fn) {
-            if (element.addEventListener)
-                element.addEventListener(event, fn, false);
-            else if (element.attachEvent)
-                element.attachEvent('on' + event, fn);
-        }
-
-        addEvent(window, 'load', createMobbrDiv);
-
+        var mobbr_api_url = 'https://api.mobbr.com';
+        var mobbr_ui_url = 'https://mobbr.com';
+        var mobbr_lightbox_url = 'https://mobbr.com/lightbox/#';
         var mobbrDiv,
             mobbrFrame,
             buttonSizes={
@@ -71,10 +44,33 @@ var mobbr = mobbr || (function () {
                 'badgeMedium',
                 'badgeWide'
             ];
+        var mobbrDiv_added;
 
-        window.onload = function () {
-            document.body.appendChild(mobbrDiv);
-        };
+        addEvent(window, 'load', createMobbrDiv);
+
+        function in_array(obj, array) {
+            var i = array.length;
+            while (i--) {
+                if (array[i] === obj) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function is_url(str) {
+            var reg = /^https?:\/\/.*/;
+            if (typeof(str)!='string') return false;
+            if (reg.test(str)) return true;
+            return false;
+        }
+
+        function addEvent(element, event, fn) {
+            if (element.addEventListener)
+                element.addEventListener(event, fn, false);
+            else if (element.attachEvent)
+                element.attachEvent('on' + event, fn);
+        }
 
         function createMobbrDiv() {
 
@@ -266,6 +262,10 @@ var mobbr = mobbr || (function () {
 
         function show(url, target) {
             setUrl(url || '');
+            if (!mobbrDiv_added) {
+                document.body.appendChild(mobbrDiv);
+                mobbrDiv_added = true;
+            }
             mobbrDiv.style.display = 'block';
         }
 
