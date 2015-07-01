@@ -1320,7 +1320,7 @@ var mobbr = mobbr || (function () {
                 div.style.cssText = 'display:none; position: fixed; top: 0; right: 0; width: 320px; height: 100%; z-index: 2147483647;';
 
                 var a = document.createElement('a');
-                a.style.cssText = 'cursor: pointer; font-size: 26px; line-height: 59px; position:absolute; top:0; right:0; text-decoration:none; width: 60px; height: 59px; color: #595f64; z-index: 99999999999; border-left: 1px solid #000; border-bottom: 1px solid #000;';
+                a.style.cssText = 'cursor: pointer; font-size: 26px; line-height: 45px; position:absolute; top:0; right:0; text-decoration:none; width: 60px; height: 45px; color: #595f64; z-index: 99999999999;';
                 a.onclick = hide;
                 a.innerText = 'x';
 
