@@ -306,11 +306,13 @@ var mobbr = mobbr || (function () {
             hide: hide,
             makePayment: function (data, target) {
                 show('hash/' + (typeof data === 'object' ? window.btoa(data.url) : window.btoa(data)), target);
-                if (typeof data === 'object') {
-                    window.document.getElementById('mobbr_frame').contentWindow.postMessage(data, '*');
-                } else {
-                    window.document.getElementById('mobbr_frame').contentWindow.postMessage(null, '*');
-                }
+                document.getElementById('mobbr_frame').onload = function() {
+                    if (typeof data === 'object') {
+                        window.document.getElementById('mobbr_frame').contentWindow.postMessage(data, '*');
+                    } else {
+                        window.document.getElementById('mobbr_frame').contentWindow.postMessage(null, '*');
+                    }
+                };
             },
             login: function () { show('login'); },
             logout: function () { show('logout'); },
