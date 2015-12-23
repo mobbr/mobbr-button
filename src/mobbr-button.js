@@ -83,7 +83,7 @@ var mobbr = mobbr || (function () {
                 var a = document.createElement('a');
                 a.style.cssText = 'cursor: pointer; font-size: 26px; line-height: 45px; position:absolute; top:0; right:0; text-decoration:none; width: 60px; height: 45px; color: #71797f; z-index: 99999999999;';
                 a.onclick = hide;
-                a.innerText = 'x';
+                a.innerHTML = 'x'; // Alternatively consider using createTextNode(), Firefox (currently 42.0) doesn't support innerText
 
                 mobbrFrame = document.createElement('iframe');
                 mobbrFrame.setAttribute('name', 'mobbr_frame');
